@@ -1,39 +1,31 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
 
 * {
     box-sizing: border-box;
 }
 
 body{
-    background-color: rgb(179, 117, 241);
-    font-family: 'Popins',sans-serif;
+    font-family: 'Ubuntu',sans-serif;
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    text-align: center;
     overflow: hidden;
     margin: 0;
     height: 100vh;
 }
 
-.btn{
-    background-color: rebeccapurple;
-    border-radius: 5px;
-    border: none;
-    color: white;
-    padding: 1.5rem 3rem;
-    margin: 1rem;
-    font-family: inherit;
-    font-size: 1.2rem;
+.bg{
+    background: url('https://wallpaperset.com/w/full/b/a/d/175446.jpg') no-repeat center center/cover;
+    position: absolute;
+    top: -30px;
+    left: -30px;
+    width: calc(100vw + 60px);
+    height: calc(100vh + 60px);
+    z-index: -1;
+    filter: blur(0px);
 }
 
-.btn:hover{
-    opacity: 0.7;
+.loading-text{
+    font-size: 50px;
+    color: #fff;
 }
-
-.btn:focus{
-    outline: none;
-
-}
-

@@ -1,24 +1,21 @@
-const sounds= ['applause','boo','gasp','tada','victory','wrong']
+const loadText=document.querySelector('.loading-text')
+const bg=document.querySelector('.bg')
 
-sounds.forEach(sound=>{
-    const btn=document.createElement('button')
-    btn.classList.add('btn')
+let load=0
+let int =setInterval(blurring,30)
 
-    btn.innerText=sound
+function blurring(){
+    load++
 
-    btn.addEventListener('click',()=>{
-        stopSongs()
-        
-        document.getElementById(sound).play()})
+    if(load>99){
+        clearInterval(int)
+    }
 
-    document.getElementById('buttons').appendChild(btn)
-})
+    loadText.innerText=`${load}%`
+    loadText.style.opacity = scale( load,0,100,1,0)
+    bg.style.filter =`blur(${scale(load,0,100,30,0)}px)`
+}
 
-function stopSongs(){
-    sounds.forEach(sound=>{
-        const song =document.getElementById(sound)
-
-        song.pause()
-        song.currentTime =0
-    })
+const scale =(num,in_min,in_max,out_min,out_max) =>{
+    return(num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
