@@ -1,31 +1,48 @@
-@import url('https://fonts.googleapis.com/css?family=Ubuntu');
+@import url('https://fonts.googleapis.com/css?family=Roboto:wght@400;700&display=swap');
 
 * {
     box-sizing: border-box;
 }
 
 body{
-    font-family: 'Ubuntu',sans-serif;
+    background-color: #efedd6;
+    font-family: 'Roboto',sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+h1{
+    margin: 10px;
+    font-size: 30px;
+}
+
+.box{
+    background-color: rgb(83, 153, 210);
+    color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
-    margin: 0;
-    height: 100vh;
+    width: 400px;
+    height: 200px;
+    margin: 10px;
+    border-radius: 10px;
+    box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.3);
+    transform: translateX(200%);
+    transition: transform 0.7s ease;
 }
 
-.bg{
-    background: url('https://wallpaperset.com/w/full/b/a/d/175446.jpg') no-repeat center center/cover;
-    position: absolute;
-    top: -30px;
-    left: -30px;
-    width: calc(100vw + 60px);
-    height: calc(100vh + 60px);
-    z-index: -1;
-    filter: blur(0px);
+.box:nth-of-type(even){
+    transform: translateX(-200%);
 }
 
-.loading-text{
-    font-size: 50px;
-    color: #fff;
+.box.show{
+    transform: translateX(0);
+}
+
+.box h2{
+    font-size: 45px;
 }
