@@ -1,48 +1,31 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
 
 * {
     box-sizing: border-box;
 }
 
 body{
-    background-color: #efedd6;
-    font-family: 'Roboto',sans-serif;
+    font-family: 'Ubuntu',sans-serif;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
     margin: 0;
-    overflow-x: hidden;
+    height: 100vh;
 }
 
-h1{
-    margin: 10px;
-    font-size: 30px;
+.bg{
+    background: url('https://wallpaperset.com/w/full/b/a/d/175446.jpg') no-repeat center center/cover;
+    position: absolute;
+    top: -30px;
+    left: -30px;
+    width: calc(100vw + 60px);
+    height: calc(100vh + 60px);
+    z-index: -1;
+    filter: blur(0px);
 }
 
-.box{
-    background-color: rgb(83, 153, 210);
+.loading-text{
+    font-size: 50px;
     color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 400px;
-    height: 200px;
-    margin: 10px;
-    border-radius: 10px;
-    box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.3);
-    transform: translateX(200%);
-    transition: transform 0.7s ease;
-}
-
-.box:nth-of-type(even){
-    transform: translateX(-200%);
-}
-
-.box.show{
-    transform: translateX(0);
-}
-
-.box h2{
-    font-size: 45px;
 }
