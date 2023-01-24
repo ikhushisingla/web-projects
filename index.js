@@ -1,9 +1,12 @@
-const labels =document.querySelectorAll('.form-control label')
+//- Bring in toggle buttons(querySelectorAll)
+//- Loop through NodeList(forEach)
+//- Add click event(addEventListener)
+//- toggle the active class on the parent Node(.parentNode & classlist.toggle)
 
-labels.forEach(label=> {
-    label.innerHTML =label.innerText
-        .split('')
+const toggles = document.querySelectorAll('.faq-toggle')
 
-.map((letter , idx)=>`<span style="transition-delay:${idx*50}ms">${letter}</span>`)
-        .join('')
+toggles.forEach(toggle => {
+    toggle.addEventListener('click', () => {
+        toggle.parentNode.classList.toggle('active')
+    })
 })
