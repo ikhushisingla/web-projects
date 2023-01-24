@@ -1,12 +1,19 @@
-//- Bring in toggle buttons(querySelectorAll)
-//- Loop through NodeList(forEach)
-//- Add click event(addEventListener)
-//- toggle the active class on the parent Node(.parentNode & classlist.toggle)
+const insert =document.getElementById('insert')
 
-const toggles = document.querySelectorAll('.faq-toggle')
+window.addEventListener('keydown' , (event) => {
+    insert.innerHTML = `
+    <div class="key">
+    ${event.key === ' '? 'Space' : event.key}
+    <small>event.key</small>
+  </div>
 
-toggles.forEach(toggle => {
-    toggle.addEventListener('click', () => {
-        toggle.parentNode.classList.toggle('active')
-    })
+  <div class="key">
+    ${event.keyCode}
+    <small>event.keyCode</small>
+  </div>
+  <div class="key">
+    ${event.code}
+    <small>event.code</small>
+  </div>
+  `
 })
