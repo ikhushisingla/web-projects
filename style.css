@@ -1,62 +1,46 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;600&display=swap');
-
-
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 *{
   box-sizing: border-box;
 }
 
 body{
-  background-color: #6b4f8b;
+  background-color: #f1efef;
   font-family: 'Roboto' , sans-serif;
   display: flex;
-  flex-direction:column ;
-  justify-content: center;
-  height: 100vh;
-  overflow: hidden;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
   margin: 0;
+  height: 100vh;
 }
 
-.container{
+canvas{
+  border: 2px solid rgb(85, 126, 159);
+}
+
+.toolbox{
+  background-color: rgb(141, 175, 204);
+  border: 1px solid rgb(77, 141, 180);
+  display: flex;
+  width: 804px;
+  padding: 1rem;
+}
+
+.toolbox > * {
   background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1);
-  padding: 50px 20px;
-  text-align: center;
-  max-width: 100%;
-  width: 800px;
-}
-
-h3{
-  margin: 0;
-  opacity: 0.5;
-  letter-spacing: 2px;
-}
-
-.joke{
-  font-size: 30px;
-  letter-spacing: 1px;
-  line-height: 40px;
-  margin: 50px auto;
-  max-width: 600px;
-}
-
-.btn{
-  background-color: #aa85d5;
-  color: #fff;
-  border: 0;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1);
-  padding: 14px 40px;
-  font-size: 16px;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  height: 50px;
+  width: 50px;
+  margin: 0.25rem;
+  padding: 0.25rem;
   cursor: pointer;
 }
 
-.btn:active{
-  transform: scale(0.98);
-}
-
-.btn:focus{
-  outline: 0;
+.toolbox > *:last-child {
+  margin-left: auto;
 }
