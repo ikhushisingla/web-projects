@@ -1,87 +1,97 @@
-const canvas = document.getElementById('canvas');
-const increaseBtn = document.getElementById('increase')
-const decreaseBtn = document.getElementById('decrease')
-const sizeEl = document.getElementById('size')
-const colorEl = document.getElementById('color')
-const clearEl = document.getElementById('clear')
-const ctx = canvas.getContext('2d');
+const quizData = [
+    {
+        question: "Which language runs in a web browser?",
+        a: "JAVA",
+        b: "C",
+        c: "Python",
+        d: "JavaScript",
+        correct: "d",
+    },
+    {
+        question: "What does CSS stands for",
+        a: "Central style sheets",
+        b: "Cascading style sheets",
+        c: "Cascading simple sheets",
+        d: "Cars SUVs Sailboats",
+        correct: "b",
+    },
+    {
+        question: "What does HTML stands for",
+        a: "Hypertext Markup language",
+        b: "Hypertext Markdownn language",
+        c: "Hyperloop Machine language",
+        d: "Helicopter terminals motorboats",
+        correct: "a",
+    },
+    {
+        question: "What year was Javascript launched?",
+        a: "1996",
+        b: "1995",
+        c: "1994",
+        d: "none of the above",
+        correct: "b",
+    },
+]
 
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+const submitBtn = document.getElementById('submit')
 
-let size = 20
-let isPressed = false
-colorEl.value = 'black'
-let color = colorEl.value
-let x
-let y
+let currentQuiz =0
+let score =0
 
-canvas.addEventListener('mousedown' , (e) => {
-    isPressed = true
+loadQuiz()
 
-    x = e.offsetX
-    y = e.offsetY
+function loadQuiz(){
+    deselectAnswers()
 
-    
-})
-canvas.addEventListener('mouseup' , (e) => {
-    isPressed = false
+    const currentQuizData = quizData[currentQuiz]
 
-    x = undefined
-    y = undefined
-
-    
-})
-canvas.addEventListener('mousemove' , (e) => {
-    if(isPressed){
-        const x2 = e.offsetX
-        const y2 = e.offsetY
-
-        drawCircle(x2,y2)
-        drawLine(x,y,x2,y2)
-        x=x2
-        y=y2
-    }
-
-    
-})
-
-function drawCircle(x, y){
-    ctx.beginPath();
-    ctx.arc(x, y, size, 0, Math.PI * 2, true)
-    ctx.fillStyle = color
-    ctx.fill()
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
 }
 
-function drawLine(x1,y1,x2,y2){
-    ctx.beginPath()
-    ctx.moveTo(x1,y1)
-    ctx.lineTo(x2,y2)
-    ctx.strokeStyle = color
-    ctx.lineWidth = size *2
-    ctx.stroke()
+function deselectAnswers(){
+    answerEls.forEach(answerEl => answerEl.checked = false)
 }
 
-function updateSizeOnScreen(){
-    sizeEl.innerText = size
+function getSelected(){
+    let answer
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked){
+            answer = answerEl.id
+        }
+    })
+    return answer
 }
 
-increaseBtn.addEventListener('click', () => {
-    size += 5
+submitBtn.addEventListener('click' ,() => {
+    const answer = getSelected()
 
-    if(size>50){
-        size=50
+    if(answer){
+        if(answer === quizData[currentQuiz].correct){
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length){
+            loadQuiz()
+        }
+        else{
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
     }
-    updateSizeOnScreen()
 })
-
-decreaseBtn.addEventListener('click', () => {
-    size -= 5
-
-    if(size<5){
-        size=5
-    }
-    updateSizeOnScreen()
-})
-
-colorEl.addEventListener('change',(e) => color = e.target.value)
-
-clearEl.addEventListener('click', () => ctx.clearRect(0,0, canvas.width, canvas.height))
