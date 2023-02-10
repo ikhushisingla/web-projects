@@ -1,97 +1,60 @@
-const quizData = [
-    {
-        question: "Which language runs in a web browser?",
-        a: "JAVA",
-        b: "C",
-        c: "Python",
-        d: "JavaScript",
-        correct: "d",
-    },
-    {
-        question: "What does CSS stands for",
-        a: "Central style sheets",
-        b: "Cascading style sheets",
-        c: "Cascading simple sheets",
-        d: "Cars SUVs Sailboats",
-        correct: "b",
-    },
-    {
-        question: "What does HTML stands for",
-        a: "Hypertext Markup language",
-        b: "Hypertext Markdownn language",
-        c: "Hyperloop Machine language",
-        d: "Helicopter terminals motorboats",
-        correct: "a",
-    },
-    {
-        question: "What year was Javascript launched?",
-        a: "1996",
-        b: "1995",
-        c: "1994",
-        d: "none of the above",
-        correct: "b",
-    },
-]
+const addBtn =document.getElementById('add')
 
-const quiz = document.getElementById('quiz')
-const answerEls = document.querySelectorAll('.answer')
-const questionEl = document.getElementById('question')
-const a_text = document.getElementById('a_text')
-const b_text = document.getElementById('b_text')
-const c_text = document.getElementById('c_text')
-const d_text = document.getElementById('d_text')
-const submitBtn = document.getElementById('submit')
-
-let currentQuiz =0
-let score =0
-
-loadQuiz()
-
-function loadQuiz(){
-    deselectAnswers()
-
-    const currentQuizData = quizData[currentQuiz]
-
-    questionEl.innerText = currentQuizData.question
-    a_text.innerText = currentQuizData.a
-    b_text.innerText = currentQuizData.b
-    c_text.innerText = currentQuizData.c
-    d_text.innerText = currentQuizData.d
+const notes = JSON.parse(localStorage.getItem('notes'))
+if(notes){
+    notes.forEach(note => addNewNote(note))
 }
 
-function deselectAnswers(){
-    answerEls.forEach(answerEl => answerEl.checked = false)
-}
+addBtn.addEventListener('click', () => addNewNote())
 
-function getSelected(){
-    let answer
-    answerEls.forEach(answerEl => {
-        if(answerEl.checked){
-            answer = answerEl.id
-        }
+function addNewNote(text = ''){
+    const note = document.createElement('div')
+    note.classList.add('note')
+
+    note.innerHTML = `
+    <div class="tools">
+    <button class="edit"><i class="fas fa-edit"></i></button>
+    <button class="delete"><i class="fas fa-trash-alt"></i></button>
+  </div>
+  <div class="main ${text ? "" : "hidden"}"></div>
+  <textarea class="${text ? "hidden" : ""}"></textarea>
+  `
+
+    const editBtn = note.querySelector('.edit')
+    const deleteBtn = note.querySelector('.delete')
+    const main = note.querySelector('.main')
+    const textArea = note.querySelector('textarea')
+    
+    textArea.value = text 
+    main.innerHTML = marked(text)
+
+    deleteBtn.addEventListener('click',() => {
+        note.remove()
+
+        updateLS()
     })
-    return answer
+    editBtn.addEventListener('click',() => {
+        main.classList.toggle('hidden')
+        textArea.classList.toggle('hidden')
+    })
+
+    textArea.addEventListener('input', (e) => {
+        const { value } = e.target
+
+        main.innerHTML = marked(value)
+
+        updateLS()
+    })
+
+
+  document.body.appendChild(note)
 }
+function updateLS(){
+    const notesText = document.querySelectorAll('textarea')
 
-submitBtn.addEventListener('click' ,() => {
-    const answer = getSelected()
+    const notes =[]
 
-    if(answer){
-        if(answer === quizData[currentQuiz].correct){
-            score++
-        }
+    notesText.forEach(note => notes.push(note.value))
 
-        currentQuiz++
-
-        if(currentQuiz < quizData.length){
-            loadQuiz()
-        }
-        else{
-            quiz.innerHTML = `
-                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
-
-                <button onclick="location.reload()">Reload</button>
-            `
-        }
-    }
-})
+localStorage.setItem('notes', JSON.stringify(notes))
+}
